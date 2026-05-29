@@ -4,6 +4,8 @@ import io.qameta.allure.Description;
 
 import io.restassured.response.Response;
 import modelclasses.Courier;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import steps.CourierSteps;
@@ -11,15 +13,21 @@ import utils.CourierGenerator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 public class CourierCreateTest {
-    private final CourierSteps courierSteps = new CourierSteps();
+    private Courier courier;
+    private CourierSteps courierSteps;
+    private int courierId;
+
+    @BeforeEach
+    public void setUp() {
+        courierSteps = new CourierSteps();
+        courier = CourierGenerator.getRandomCourier();
+    }
 
     @Test
     @DisplayName("Курьер может быть создан")
     @Description("Проверка успешного создания курьера")
     public void courierCanBeCreated() {
-        Courier courier = CourierGenerator.getRandomCourier();
         Response response = courierSteps.createCourier(courier);
         assertEquals(201, response.statusCode());
         assertEquals(true, response.jsonPath().getBoolean("ok"));
@@ -49,5 +57,12 @@ public class CourierCreateTest {
         Courier courier = new Courier("ninja", null, "Test");
         Response response = courierSteps.createCourier(courier);
         assertEquals(400, response.statusCode());
+    }
+
+    @AfterEach
+    public void tearDown() {
+        if (courierId != 0) {
+            courierSteps.deleteCourier(courierId);
+        }
     }
 }

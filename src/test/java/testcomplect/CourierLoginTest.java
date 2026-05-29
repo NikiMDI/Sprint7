@@ -1,6 +1,5 @@
 package testcomplect;
 
-
 import io.restassured.response.Response;
 import modelclasses.Courier;
 import org.junit.jupiter.api.AfterEach;
@@ -14,6 +13,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CourierLoginTest {
+
     private Courier courier;
     private CourierSteps courierSteps;
     private int courierId;
@@ -73,7 +73,6 @@ public class CourierLoginTest {
 
     @AfterEach
     public void tearDown() {
-
         if (courierId != 0) {
             courierSteps.deleteCourier(courierId);
         }
