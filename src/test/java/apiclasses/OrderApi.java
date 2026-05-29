@@ -8,8 +8,6 @@ import static io.restassured.RestAssured.given;
 
 public class OrderApi extends BaseClient{
 
-    private static final String BASE_URL = "https://qa-scooter.praktikum-services.ru";
-
     private static final String CREATE_ORDER = "/api/v1/orders";
 
     private static final String GET_ORDERS = "/api/v1/orders";
